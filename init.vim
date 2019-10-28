@@ -33,6 +33,7 @@ noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 " as yy).
 noremap Y y$
 
+tnoremap <Esc> <C-\><C-n>
 
 " Disable arrow movement, resize splits instead.
 if get(g:, 'elite_mode')
