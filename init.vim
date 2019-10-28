@@ -72,13 +72,13 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " auto completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-emmet', 'coc-tslint', 'coc-prettier']
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-emmet', 'coc-eslint', 'coc-prettier']
 " coc plugins
 " if hidden is not set, TextEdit might fail.
 set hidden
 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-
+let NERDTreeShowHidden=1
 
 " Some servers have issues with backup files, see #649
 set nobackup
