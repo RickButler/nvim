@@ -28,6 +28,9 @@ nnoremap <Leader>O :CtrlP<CR>
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j') 
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k') 
 
+" NERDTree Mappings
+nnoremap <silent> <expr> <F6> g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
+
 " Make Y yank everything from the cursor to the end of the line. This makes Y
 " act more like C or D b/c by default, Y yanks the current line (i.e. the same
 " as yy).
@@ -51,7 +54,11 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'sbdchd/neoformat', {'on': 'ToggleNeoformat' }
 Plug 'pangloss/vim-javascript'
+
+" ColorScheme - Start
 Plug 'leafgarland/typescript-vim'
+" ColorScheme - End
+
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'SirVer/ultisnips'
@@ -62,6 +69,7 @@ Plug 'tpope/vim-surround'
 Plug 'dikiaap/minimalist'
 Plug 'tpope/vim-fugitive'
 Plug 'ianks/vim-tsx'
+Plug 'ryanoasis/vim-devicons'
 " Auto Pairs
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-repeat'
@@ -209,8 +217,31 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " Initialize plugin system
 call plug#end()
+
+" Visual Text Macros - Start
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+" Visual Text Macros - End
+
 set t_Co=256
 colorscheme minimalist
+set encoding=UTF-8
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+" dark red
+hi tsxTagName guifg=#E06C75
+
+" orange
+hi tsxCloseString guifg=#F99575
+hi tsxCloseTag guifg=#F99575
+hi tsxAttributeBraces guifg=#F99575
+hi tsxEqual guifg=#F99575
+
+" yellow
+hi tsxAttrib guifg=#F8BD7F cterm=italic
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
