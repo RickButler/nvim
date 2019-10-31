@@ -14,7 +14,12 @@ set wildmenu
 set incsearch
 set tabstop=2
 set shiftwidth=2
-
+ "Set PowerShell as shell
+ "set shell=powershell.exe
+ "set shellcmdflag=-NoProfile\ -NoLogo\ -NonInteractive\ -Command
+"set shellpipe=|
+"set shellredir=>
+" Enable Windows clipboard copy/paste
 " Enable highlighting of the current line
 set cursorline
 let mapleader = ","
@@ -52,16 +57,17 @@ endif
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'sbdchd/neoformat', {'on': 'ToggleNeoformat' }
 Plug 'pangloss/vim-javascript'
-
+Plug 'maxmellon/vim-jsx-pretty'
 " ColorScheme - Start
+Plug 'lifepillar/vim-solarized8'
 Plug 'leafgarland/typescript-vim'
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1
 " ColorScheme - End
-
+Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -80,6 +86,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " auto completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-emmet', 'coc-eslint', 'coc-prettier']
 " coc plugins
 " if hidden is not set, TextEdit might fail.
@@ -226,9 +233,9 @@ function! ExecuteMacroOverVisualRange()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 " Visual Text Macros - End
-
-set t_Co=256
-colorscheme minimalist
+set termguicolors 
+set background=dark
+colorscheme gruvbox
 set encoding=UTF-8
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 " dark red

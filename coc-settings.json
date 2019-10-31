@@ -1,6 +1,10 @@
 {
 	"prettier.tslintIntegration": false,
 	"prettier.eslintIntegration": true,
+	"prettier.singleQuote": true,
+	"prettier.trailingComma": "all",
+	"prettier.tabWidth": 2,
+	"prettier.jsxBracketSameLine": true,
 	"coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact"],
 	"eslint.filetypes": [
 		"javascript",
