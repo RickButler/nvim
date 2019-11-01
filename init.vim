@@ -15,7 +15,7 @@ set incsearch
 set tabstop=2
 set shiftwidth=2
  "Set PowerShell as shell
- set shell=powershell.exe
+ "set shell=powershell.exe
  "set shellcmdflag=-NoProfile\ -NoLogo\ -NonInteractive\ -Command
 "set shellpipe=|
 "set shellredir=>
@@ -86,7 +86,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " auto completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+"Search tool for vim
+Plug 'rking/ag.vim'
 let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-emmet', 'coc-prettier']
 " coc plugins
 " if hidden is not set, TextEdit might fail.
@@ -257,3 +258,4 @@ autocmd FileType nerdtree setlocal relativenumber
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
+
