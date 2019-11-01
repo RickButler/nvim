@@ -15,7 +15,7 @@ set incsearch
 set tabstop=2
 set shiftwidth=2
  "Set PowerShell as shell
- "set shell=powershell.exe
+ set shell=powershell.exe
  "set shellcmdflag=-NoProfile\ -NoLogo\ -NonInteractive\ -Command
 "set shellpipe=|
 "set shellredir=>
@@ -87,7 +87,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " auto completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-emmet', 'coc-eslint', 'coc-prettier']
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-emmet', 'coc-prettier']
 " coc plugins
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -249,6 +249,11 @@ hi tsxEqual guifg=#F99575
 
 " yellow
 hi tsxAttrib guifg=#F8BD7F cterm=italic
+
+" enable line numbers
+let NERDTreeShowLineNumbers=1
+" make sure relative line numbers are used
+autocmd FileType nerdtree setlocal relativenumber
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
