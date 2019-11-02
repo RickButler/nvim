@@ -29,11 +29,12 @@ let g:elite_mode=1
 " Shortcuts
 nnoremap <Leader>O :CtrlP<CR>
  
+map ; :
+tnoremap jk <C-\><C-n>
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
-nnoremap <leader>s :w<CR>
 inoremap jj <Esc>hEa
 inoremap jn <Esc>hEa<CR>
 
@@ -50,7 +51,6 @@ nnoremap <silent> <expr> <F6> g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufe
 " as yy).
 noremap Y y$
 
-tnoremap <Esc> <C-\><C-n>
 
 " Disable arrow movement, resize splits instead.
 if get(g:, 'elite_mode')
