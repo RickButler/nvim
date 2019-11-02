@@ -21,7 +21,7 @@ set shiftwidth=2
 "set shellredir=>
 " Enable Windows clipboard copy/paste
 " Enable highlighting of the current line
-set cursorline
+" set cursorline
 let mapleader = ","
 
 " Enable Elite mode, No ARRRROWWS!!!!
@@ -29,7 +29,16 @@ let g:elite_mode=1
 " Shortcuts
 nnoremap <Leader>O :CtrlP<CR>
  
-" j/k will move virtual lines (lines hat wrap)
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+nnoremap <leader>s :w<CR>
+inoremap jj <Esc>hEa
+inoremap jn <Esc>hEa<CR>
+
+"
+"j/k will move virtual lines (lines hat wrap)
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j') 
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k') 
 
@@ -104,7 +113,7 @@ set nowritebackup
 set cmdheight=2
 
 " You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
+set updatetime=750
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -183,10 +192,10 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Create mappings for function text object, requires document symbols feature of languageserver.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
+"xmap if <Plug>(coc-funcobj-i)
+"xmap af <Plug>(coc-funcobj-a)
+"omap if <Plug>(coc-funcobj-i)
+"omap af <Plug>(coc-funcobj-a)
 
 " Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
 nmap <silent> <C-d> <Plug>(coc-range-select)
@@ -206,7 +215,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
