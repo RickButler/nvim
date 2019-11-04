@@ -106,9 +106,9 @@ Plug 'rking/ag.vim'
 Plug 'chrisbra/NrrwRgn'
 
 ":NR           - Open the selected region in a new narrowed window
-nnoremap jnr :NR<CR>
+"nnoremap <leader>nr :NR<CR>
 ":NW           - Open the current visual window in a new narrowed window
-nnoremap jnw :NW<CR>
+nnoremap <leader>nw :NW<CR>
 ":WidenRegion  - (In the narrowed window) write the changes back to the original buffer.
 ":NRV          - Open the narrowed window for the region that was last visually selected.
 ":NUD          - (In a unified diff) open the selected diff in 2 Narrowed windows
@@ -147,26 +147,26 @@ set signcolumn=yes
 
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger='js'
+"let g:UltiSnipsExpandTrigger='js'
 
 " shortcut to go to next position
-let g:UltiSnipsJumpForwardTrigger='<c-j>'
+"let g:UltiSnipsJumpForwardTrigger='<c-j>'
 
 " shortcut to go to previous position
-let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+"let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 
 
 " Buffers go back to prev
-nnoremap jnb :b#<CR>
+nnoremap <leader>nb :b#<CR>
 
 
 " NERDTree Bookmarks ---------------------------------
 " Open Bookmark
-nnoremap job :OpenBookmark
+nnoremap <leader>ob :OpenBookmark
 " Bookmark
-nnoremap jb :Bookmark
+nnoremap <leader>b :Bookmark
 " Get Bookmarks
-nnoremap jgb :Bookmarks
+nnoremap <leader>gb :Bookmarks
 " NERDTree Bookmarks ---------------------------------
 
 " Use tab for trigger completion with characters ahead and navigate.
