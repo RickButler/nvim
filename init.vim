@@ -30,13 +30,15 @@ let g:elite_mode=1
 nnoremap <Leader>O :CtrlP<CR>
  
 map ; :
-tnoremap jk <C-\><C-n>
+inoremap jj <Esc>hEa
+inoremap jn <Esc>hEa<CR>
+noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
-inoremap jj <Esc>hEa
-inoremap jn <Esc>hEa<CR>
+noremap <leader>q :q<CR>
+noremap <leader>s :w<CR>
+tnoremap jk <C-\><C-n>
 
 "
 "j/k will move virtual lines (lines hat wrap)
@@ -65,7 +67,10 @@ endif
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
-
+Plug 'SirVer/ultisnips'
+Plug 'tomtom/tcomment_vim'
+"Plug 'tpope/vim-commentary'
+"Plug 'suy/vim-context-commentstring'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 " ColorScheme - Start
@@ -97,11 +102,30 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Search tool for vim
 Plug 'rking/ag.vim'
+" Edit selected text in new window/tab/region
+Plug 'chrisbra/NrrwRgn'
+
+":NR           - Open the selected region in a new narrowed window
+nnoremap jnr :NR<CR>
+":NW           - Open the current visual window in a new narrowed window
+nnoremap jnw :NW<CR>
+":WidenRegion  - (In the narrowed window) write the changes back to the original buffer.
+":NRV          - Open the narrowed window for the region that was last visually selected.
+":NUD          - (In a unified diff) open the selected diff in 2 Narrowed windows
+":NRP          - Mark a region for a Multi narrowed window
+":NRM          - Create a new Multi narrowed window (after :NRP) - experimental!
+":NRS          - Enable Syncing the buffer content back (default on)
+":NRN          - Disable Syncing the buffer content back
+":NRL          - Reselect the last selected region and open it again in a narrowed window
+
+
 let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-emmet', 'coc-prettier']
 " coc plugins
 " if hidden is not set, TextEdit might fail.
 set hidden
 
+" Nerd Commenter Custom
+"   React Commenter
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 let NERDTreeShowHidden=1
 
@@ -121,17 +145,41 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger='js'
+
+" shortcut to go to next position
+let g:UltiSnipsJumpForwardTrigger='<c-j>'
+
+" shortcut to go to previous position
+let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+
+
+" Buffers go back to prev
+nnoremap jnb :b#<CR>
+
+
+" NERDTree Bookmarks ---------------------------------
+" Open Bookmark
+nnoremap job :OpenBookmark
+" Bookmark
+nnoremap jb :Bookmark
+" Get Bookmarks
+nnoremap jgb :Bookmarks
+" NERDTree Bookmarks ---------------------------------
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+			\ pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<TAB>" :
+			\ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion.
@@ -171,8 +219,10 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>f  :Format<CR>
+nmap <leader>f  :Format<CR>
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
