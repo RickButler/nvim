@@ -11,5 +11,6 @@
 		"javascriptreact",
 		"typescript",
 		"typescriptreact"
-	]
+	],
+ "javascript.validate.enable": false
 }
