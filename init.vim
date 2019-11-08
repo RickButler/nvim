@@ -110,8 +110,11 @@ nnoremap <Leader>O :CtrlP<CR>
 nnoremap <Left>  :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
 nnoremap <Up>    :resize +2<CR>
+" use enter key to repeat last macro
+nnoremap <expr> <CR> empty(&buftype) ? '@@' : '<CR>'
 " Buffers go back to prev
-nnoremap <leader>nb :b#<CR>
+nnoremap <leader><leader> :b#<CR>
+nnoremap <leader>o :only<CR>
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
@@ -137,10 +140,7 @@ iabbr joeemail joedbenjamin@gmail.com
 " Abbreviations - End -----------------
 " ------------------ NERDTree Mappings & Settings Start ------------------
 "uses F6 to open and close nerdtree - opens current buffer
-nnoremap <silent> <expr> <F6> g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
-nnoremap <leader>ob :OpenBookmark
-nnoremap <leader>b :Bookmark
-nnoremap <leader>gb :Bookmarks
+nnoremap <silent> <expr> <leader>nt g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>zz" : "\:NERDTree<CR>zz"
 let NERDTreeShowHidden=1
 let NERDTreeShowLineNumbers=1
 autocmd FileType nerdtree setlocal relativenumber
