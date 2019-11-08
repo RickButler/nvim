@@ -1,76 +1,7 @@
-" dont bother trying to be the old vi, be vim
-set nocompatible
-
-" enable syntax and plugins (for netrw)
-syntax enable
-syntax on
-filetype plugin on
-
-inoremap jk <Esc>
-set number
-set relativenumber
-set path+=**
-set wildmenu
-set incsearch
-set tabstop=2
-set shiftwidth=2
- "Set PowerShell as shell
- "set shell=powershell.exe
- "set shellcmdflag=-NoProfile\ -NoLogo\ -NonInteractive\ -Command
-"set shellpipe=|
-"set shellredir=>
-" Enable Windows clipboard copy/paste
-" Enable highlighting of the current line
-" set cursorline
-let mapleader = ","
-
-" Enable Elite mode, No ARRRROWWS!!!!
-let g:elite_mode=1
-" Shortcuts
-nnoremap <Leader>O :CtrlP<CR>
- 
-map ; :
-inoremap jj <Esc>hEa
-inoremap jn <Esc>hEa<CR>
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <leader>q :q<CR>
-noremap <leader>s :w<CR>
-tnoremap jk <C-\><C-n>
-
-"
-"j/k will move virtual lines (lines hat wrap)
-noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j') 
-noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k') 
-
-" NERDTree Mappings
-nnoremap <silent> <expr> <F6> g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
-
-" Make Y yank everything from the cursor to the end of the line. This makes Y
-" act more like C or D b/c by default, Y yanks the current line (i.e. the same
-" as yy).
-noremap Y y$
-
-
-" Disable arrow movement, resize splits instead.
-if get(g:, 'elite_mode')
-    nnoremap <Up>    :resize +2<CR>
-    nnoremap <Down>  :resize -2<CR>
-    nnoremap <Left>  :vertical resize +2<CR>
-    nnoremap <Right> :vertical resize -2<CR>
-endif
-
-
-" Specify a directory for plugins
-" - For Neovim: stdpath('data') . '/plugged'
-" - Avoid using standard Vim directory names like 'plugin'
+" Plugins - Start ---------------------
 call plug#begin('~/.vim/plugged')
 Plug 'SirVer/ultisnips'
 Plug 'tomtom/tcomment_vim'
-"Plug 'tpope/vim-commentary'
-"Plug 'suy/vim-context-commentstring'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 " ColorScheme - Start
@@ -90,44 +21,145 @@ Plug 'dikiaap/minimalist'
 Plug 'tpope/vim-fugitive'
 Plug 'ianks/vim-tsx'
 Plug 'ryanoasis/vim-devicons'
-" Auto Pairs
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-repeat'
 Plug 'kien/ctrlp.vim'
-" Nerd Commenter
 Plug 'scrooloose/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " auto completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Search tool for vim
 Plug 'rking/ag.vim'
 " Edit selected text in new window/tab/region
 Plug 'chrisbra/NrrwRgn'
+Plug 'OmniSharp/omnisharp-vim'
+" Initialize plugin system
+call plug#end()
+" Plugins - End ---------------------
 
-":NR           - Open the selected region in a new narrowed window
-"nnoremap <leader>nr :NR<CR>
+" Use the stdio version of OmniSharp-roslyn:
+let g:OmniSharp_server_stdio = 1
+let g:OmniSharp_server_start = 0
+let g:OmniSharp_server_path = 'C:\\omnisharp.win-x64\\OmniSharp.exe'
+augroup omnisharp_commands
+    autocmd!
+
+    " Show type information automatically when the cursor stops moving
+    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+
+    " The following commands are contextual, based on the cursor position.
+    autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
+
+    " Finds members in the current buffer
+    autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
+
+    autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+    autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
+    autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
+
+    " Navigate up and down by method/property/field
+    autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
+    autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+
+    " Find all code errors/warnings for the current solution and populate the quickfix window
+    autocmd FileType cs nnoremap <buffer> <Leader>cc :OmniSharpGlobalCodeCheck<CR>
+augroup END
+" Settings - Start --------------------
+set nocompatible
+let g:OmniSharp_highlight_types = 2
+let g:OmniSharp_proc_debug = 1
+let g:OmniSharp_loglevel = 'debug'
+" enable syntax and plugins (for netrw)
+syntax enable
+syntax on
+filetype plugin on
+filetype indent plugin on
+
+let mapleader = ","
+set number
+set relativenumber
+set path+=**
+set wildmenu
+set incsearch
+set tabstop=2
+set shiftwidth=2
+set ignorecase
+" Settings - End   --------------------
+
+" Remaps - Begin  ---------------------
+inoremap <leader>' ''<Esc>i
+inoremap <leader>" ""<Esc>i
+inoremap <leader>( ()<Esc>i
+inoremap <leader>[ []<Esc>i
+inoremap <leader>{ {}<Esc>i
+inoremap jl <Esc>la
+inoremap jh <Esc>i
+inoremap jj <Esc>A
+inoremap jx <Esc>lxi
+inoremap jk <Esc>
+inoremap jn <Esc>hEa<CR>
+map ; :
+nnoremap <leader><space> :noh<CR>
+nnoremap <Down>  :resize -2<CR>
+nnoremap <Leader>O :CtrlP<CR>
+nnoremap <Left>  :vertical resize +2<CR>
+nnoremap <Right> :vertical resize -2<CR>
+nnoremap <Up>    :resize +2<CR>
+" Buffers go back to prev
+nnoremap <leader>nb :b#<CR>
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <leader>q :q<CR>
+noremap <leader>s :w<CR>
+nnoremap go o<Esc>
+nnoremap gO O<Esc>j
+tnoremap jk <C-\><C-n
+
+" Make Y yank everything from the cursor to the end of the line. This makes Y
+" act more like C or D b/c by default, Y yanks the current line (i.e. the same
+" as yy).
+noremap Y y$
+
+"j/k will move virtual lines (lines hat wrap)
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j') 
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k') 
+
+" Remaps - End    ---------------------
+" Abbreviations - Start -----------------
+iabbr joeemail joedbenjamin@gmail.com
+" Abbreviations - End -----------------
+" ------------------ NERDTree Mappings & Settings Start ------------------
+"uses F6 to open and close nerdtree - opens current buffer
+nnoremap <silent> <expr> <F6> g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
+nnoremap <leader>ob :OpenBookmark
+nnoremap <leader>b :Bookmark
+nnoremap <leader>gb :Bookmarks
+let NERDTreeShowHidden=1
+let NERDTreeShowLineNumbers=1
+autocmd FileType nerdtree setlocal relativenumber
+" ------------------ NERDTree Mappings & Settings End --------------------
+
+
+
 ":NW           - Open the current visual window in a new narrowed window
 nnoremap <leader>nw :NW<CR>
-":WidenRegion  - (In the narrowed window) write the changes back to the original buffer.
-":NRV          - Open the narrowed window for the region that was last visually selected.
-":NUD          - (In a unified diff) open the selected diff in 2 Narrowed windows
-":NRP          - Mark a region for a Multi narrowed window
-":NRM          - Create a new Multi narrowed window (after :NRP) - experimental!
-":NRS          - Enable Syncing the buffer content back (default on)
-":NRN          - Disable Syncing the buffer content back
-":NRL          - Reselect the last selected region and open it again in a narrowed window
+set shiftwidth=2
+set autoindent
+set smartindent
 
-
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-emmet', 'coc-prettier']
+let g:coc_global_extensions = ['coc-utils', 'coc-json', 'coc-tsserver', 'coc-emmet', 'coc-prettier', 'coc-omnisharp']
 " coc plugins
 " if hidden is not set, TextEdit might fail.
 set hidden
 
-" Nerd Commenter Custom
-"   React Commenter
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-let NERDTreeShowHidden=1
 
 " Some servers have issues with backup files, see #649
 set nobackup
@@ -147,27 +179,16 @@ set signcolumn=yes
 
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
-"let g:UltiSnipsExpandTrigger='js'
+let g:UltiSnipsExpandTrigger='<c-space>'
 
 " shortcut to go to next position
-"let g:UltiSnipsJumpForwardTrigger='<c-j>'
+let g:UltiSnipsJumpForwardTrigger='<c-j>'
 
 " shortcut to go to previous position
-"let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 
 
-" Buffers go back to prev
-nnoremap <leader>nb :b#<CR>
 
-
-" NERDTree Bookmarks ---------------------------------
-" Open Bookmark
-nnoremap <leader>ob :OpenBookmark
-" Bookmark
-nnoremap <leader>b :Bookmark
-" Get Bookmarks
-nnoremap <leader>gb :Bookmarks
-" NERDTree Bookmarks ---------------------------------
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -282,8 +303,6 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " end coc plugins
 
-" Initialize plugin system
-call plug#end()
 
 " Visual Text Macros - Start
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
@@ -310,11 +329,14 @@ hi tsxEqual guifg=#F99575
 " yellow
 hi tsxAttrib guifg=#F8BD7F cterm=italic
 
-" enable line numbers
-let NERDTreeShowLineNumbers=1
-" make sure relative line numbers are used
-autocmd FileType nerdtree setlocal relativenumber
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
-
+"FOLDS:
+"------
+" Automatically save folds
+"augroup AutoSaveFolds
+  "autocmd!
+  "au BufWinLeave ?* mkview 1
+  "au BufWinEnter ?* silent loadview 1
+"augroup END
