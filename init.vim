@@ -120,7 +120,7 @@ noremap <leader>q :q<CR>
 noremap <leader>s :w<CR>
 nnoremap go o<Esc>
 nnoremap gO O<Esc>j
-tnoremap jk <C-\><C-n
+tnoremap jk <C-\><C-n>
 
 " Make Y yank everything from the cursor to the end of the line. This makes Y
 " act more like C or D b/c by default, Y yanks the current line (i.e. the same
